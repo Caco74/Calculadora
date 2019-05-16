@@ -17,6 +17,9 @@ var seis     = document.getElementById('6')
 var siete    = document.getElementById('7')
 var ocho     = document.getElementById('8')
 var nueve    = document.getElementById('9')
+var pantalla = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
+// var pantDisp = document.querySelector("#calculadoraFondo .pantalla #display")
+
 
 var Calculadora = {
   eventoBotones: function() {
@@ -115,11 +118,11 @@ var Calculadora = {
 
     uno.addEventListener('mousedown', function() {
       uno.style.padding = '5px';
-      var num = 1;
+      uno.value = 1;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = uno.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + uno.value);
     })
     uno.addEventListener('mouseup', function() {
       uno.style.padding = '0px';
@@ -128,11 +131,16 @@ var Calculadora = {
 
     dos.addEventListener('mousedown', function() {
       dos.style.padding = '5px';
-      var num = 2;
+      dos.value = 2;
+      if (document.querySelector("#calculadoraFondo .pantalla #display").value !== 0) {
+        console.log("Es verdadero!");
+      } else {
+        console.log("Es Falso!");
+      }
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = dos.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + dos.value);
     })
     dos.addEventListener('mouseup', function() {
       dos.style.padding = '0px';
@@ -141,10 +149,11 @@ var Calculadora = {
 
     tres.addEventListener('mousedown', function() {
       tres.style.padding = '5px';
+      tres.value =3;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = 3;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = tres.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + tres.value);
     })
     tres.addEventListener('mouseup', function() {
       tres.style.padding = '0px';
@@ -153,11 +162,11 @@ var Calculadora = {
 
     cuatro.addEventListener('mousedown', function() {
       cuatro.style.padding = '5px';
-      var num = 4;
+      cuatro.value = 4;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = cuatro.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + cuatro.value);
     })
     cuatro.addEventListener('mouseup', function() {
       cuatro.style.padding = '0px';
@@ -166,11 +175,11 @@ var Calculadora = {
 
     cinco.addEventListener('mousedown', function() {
       cinco.style.padding = '5px';
-      var num = 5;
+      cinco.value = 5;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = cinco.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + cinco.value);
     })
     cinco.addEventListener('mouseup', function() {
       cinco.style.padding = '0px';
@@ -179,11 +188,11 @@ var Calculadora = {
 
     seis.addEventListener('mousedown', function() {
       seis.style.padding = '5px';
-      var num = 6;
+      seis.value = 6;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = seis.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + seis.value);
     })
     seis.addEventListener('mouseup', function() {
       seis.style.padding = '0px';
@@ -192,11 +201,11 @@ var Calculadora = {
 
     siete.addEventListener('mousedown', function() {
       siete.style.padding = '5px';
-      var num = 7;
+      siete.value = 7;
       var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      var sumado = siete.value;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      console.log('El botón está siendo presionado.  ' + siete.value);
     })
     siete.addEventListener('mouseup', function() {
       siete.style.padding = '0px';
@@ -205,16 +214,16 @@ var Calculadora = {
 
     ocho.addEventListener('mousedown', function() {
       ocho.style.padding = '5px';
-      var num = 8;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display");
-      console.log(actual.value);
-      if (actual != 0) {
-        actual.value = "";
-        console.log("Nuevo Valor: " + actual.value);
+      ocho.value = 8;
+      var ceroP = pantalla;
+      console.log(ceroP);
+      if (ceroP == 0) {
+        console.log("Verdadero -> " + ceroP);
       } else {
-        actual.innerHTML = "No cambio";
+        console.log("Falso     -> " + ceroP);
       }
-      var sumado = num;
+      var sumado = ocho.value;
+      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
       document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
       console.log('El botón está siendo presionado.');
     })
@@ -246,7 +255,8 @@ var Calculadora = {
 
   numerosDisplay: function(){
     var display = document.querySelector("#calculadoraFondo .pantalla #display");
-    display.value = 0;
+    display.value = 6;
+    console.log("Cero");
   },
   borrarCero: function() {
     var disp = document.querySelector("#calculadoraFondo .pantalla #display");
