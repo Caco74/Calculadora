@@ -1,31 +1,37 @@
-var dividir  = document.getElementById('dividido');
-var producto = document.getElementById('por');
-var menos    = document.getElementById('menos')
-var punto    = document.getElementById('punto')
-var igual    = document.getElementById('igual')
-var mas      = document.getElementById('mas')
-var on       = document.getElementById('on')
-var sign     = document.getElementById('sign')
-var raiz     = document.getElementById('raiz')
-var cero     = document.getElementById('0')
-var uno      = document.getElementById('1')
-var dos      = document.getElementById('2')
-var tres     = document.getElementById('3')
-var cuatro   = document.getElementById('4')
-var cinco    = document.getElementById('5')
-var seis     = document.getElementById('6')
-var siete    = document.getElementById('7')
-var ocho     = document.getElementById('8')
-var nueve    = document.getElementById('9')
-var pantalla = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
+dividir  = document.getElementById('dividido');
+producto = document.getElementById('por');
+menos    = document.getElementById('menos')
+punto    = document.getElementById('punto')
+igual    = document.getElementById('igual')
+mas      = document.getElementById('mas')
+on       = document.getElementById('on')
+sign     = document.getElementById('sign')
+raiz     = document.getElementById('raiz')
+cero     = document.getElementById('0')
+uno      = document.getElementById('1')
+dos      = document.getElementById('2')
+tres     = document.getElementById('3')
+cuatro   = document.getElementById('4')
+cinco    = document.getElementById('5')
+seis     = document.getElementById('6')
+siete    = document.getElementById('7')
+ocho     = document.getElementById('8')
+nueve    = document.getElementById('9')
+pantalla = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
 // var pantDisp = document.querySelector("#calculadoraFondo .pantalla #display")
 
 
 var Calculadora = {
+  digitos:0,
+  num1: 0,
+  num2: 0,
+  resultado: 0,
+  operacion: "",
   eventoBotones: function() {
     dividir.addEventListener('mousedown', function() {
       dividir.style.padding = '7px';
-      console.log('El botón está siendo presionado.');
+      num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
     })
     dividir.addEventListener('mouseup', function() {
       dividir.style.padding = '0px';
@@ -34,7 +40,8 @@ var Calculadora = {
 
     producto.addEventListener('mousedown', function() {
       producto.style.padding = '7px';
-      console.log('El botón está siendo presionado.');
+      num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
     })
     producto.addEventListener('mouseup', function() {
       producto.style.padding = '0px';
@@ -43,7 +50,8 @@ var Calculadora = {
 
     menos.addEventListener('mousedown', function() {
       menos.style.padding = '7px';
-      console.log('El botón está siendo presionado.');
+      num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
     })
     menos.addEventListener('mouseup', function() {
       menos.style.padding = '0px';
@@ -70,7 +78,8 @@ var Calculadora = {
 
     mas.addEventListener('mousedown', function() {
       mas.style.padding = '5px';
-      console.log('El botón está siendo presionado.');
+      num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
     })
     mas.addEventListener('mouseup', function() {
       mas.style.padding = '0px';
@@ -79,6 +88,7 @@ var Calculadora = {
 
     on.addEventListener('mousedown', function() {
       on.style.padding = '5px';
+      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "0"
       console.log('El botón está siendo presionado.');
     })
     on.addEventListener('mouseup', function() {
@@ -106,166 +116,190 @@ var Calculadora = {
 
     cero.addEventListener('mousedown', function() {
       cero.style.padding = '5px';
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = 0;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      if (Calculadora.digitos<8) {
+        if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        }else {
+          Calculadora.digitos++
+          console.log("Distinto de CERO");
+          var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+          var sumado = 0;
+          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
+        }
+      }
     })
     cero.addEventListener('mouseup', function() {
       cero.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     uno.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       uno.style.padding = '5px';
-      uno.value = 1;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = uno.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + uno.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        uno.value = 1;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = uno.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     uno.addEventListener('mouseup', function() {
       uno.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     dos.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       dos.style.padding = '5px';
-      dos.value = 2;
-      if (document.querySelector("#calculadoraFondo .pantalla #display").value !== 0) {
-        console.log("Es verdadero!");
-      } else {
-        console.log("Es Falso!");
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
       }
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = dos.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + dos.value);
+      if (Calculadora.digitos<9) {
+        dos.value = 2;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = dos.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     dos.addEventListener('mouseup', function() {
       dos.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     tres.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       tres.style.padding = '5px';
-      tres.value =3;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = tres.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + tres.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        tres.value = 3;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = tres.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     tres.addEventListener('mouseup', function() {
       tres.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     cuatro.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       cuatro.style.padding = '5px';
-      cuatro.value = 4;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = cuatro.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + cuatro.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        cuatro.value = 4;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = cuatro.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     cuatro.addEventListener('mouseup', function() {
       cuatro.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     cinco.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       cinco.style.padding = '5px';
-      cinco.value = 5;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = cinco.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + cinco.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        cinco.value = 5;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = cinco.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     cinco.addEventListener('mouseup', function() {
       cinco.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     seis.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       seis.style.padding = '5px';
-      seis.value = 6;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = seis.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + seis.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        seis.value = 6;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = seis.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     seis.addEventListener('mouseup', function() {
       seis.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     siete.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       siete.style.padding = '5px';
-      siete.value = 7;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = siete.value;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
-      console.log('El botón está siendo presionado.  ' + siete.value);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        siete.value = 7;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = siete.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     siete.addEventListener('mouseup', function() {
       siete.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     ocho.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       ocho.style.padding = '5px';
-      ocho.value = 8;
-      var ceroP = pantalla;
-      console.log(ceroP);
-      if (ceroP == 0) {
-        console.log("Verdadero -> " + ceroP);
-      } else {
-        console.log("Falso     -> " + ceroP);
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
       }
-      var sumado = ocho.value;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
-      console.log('El botón está siendo presionado.');
+      if (Calculadora.digitos<9) {
+        ocho.value = 8;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = ocho.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     ocho.addEventListener('mouseup', function() {
       ocho.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
     nueve.addEventListener('mousedown', function() {
+      Calculadora.digitos++
       nueve.style.padding = '5px';
-      var num = 9;
-      var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      var sumado = num;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML =  sumado;
-      sumado = sumado + sumado;
-      // document.querySelector("#calculadoraFondo .pantalla #display").innerHTML =  sumado;
-      // document.querySelector("#calculadoraFondo .pantalla #display").innerHTML =  actual + sumado;
-      console.log('El botón está siendo presionado.');
+      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML == 0) {
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      }
+      if (Calculadora.digitos<9) {
+        nueve.value = 9;
+        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var sumado = nueve.value;
+        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+      }
     })
     nueve.addEventListener('mouseup', function() {
       nueve.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
-    // document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = seis;
+
+
+
+
+
     this.numerosDisplay();
-    // this.borrarCero();
   },
 
-  numerosDisplay: function(){
-    var display = document.querySelector("#calculadoraFondo .pantalla #display");
-    display.value = 6;
-    console.log("Cero");
-  },
-  borrarCero: function() {
-    var disp = document.querySelector("#calculadoraFondo .pantalla #display");
-    console.log(disp.value);
-    if (disp != 0) {
-      disp.value = "";
-      console.log("Nuevo Valor: " + disp.value);
-    } else {
-      disp.innerHTML = "No cambio";
+  /* ULTIMO PASOS ---------------------> */
+  numerosDisplay: function() {
+    switch (operacion) {
+      case "mas":
+        resultado =
+        break;
+      default:
+
     }
   }
 }
