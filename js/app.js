@@ -1,3 +1,4 @@
+/*--------- Variables ---------*/
 dividir  = document.getElementById('dividido');
 producto = document.getElementById('por');
 menos    = document.getElementById('menos')
@@ -17,13 +18,12 @@ seis     = document.getElementById('6')
 siete    = document.getElementById('7')
 ocho     = document.getElementById('8')
 nueve    = document.getElementById('9')
-pantalla = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
-// var pantDisp = document.querySelector("#calculadoraFondo .pantalla #display")
+pantalla = document.querySelector("#calculadoraFondo .pantalla #display")
 
-
+/*--------- Patrón Módulo ---------*/
 var Calculadora = {
   digitos:0,
-  contadorIgual: 0,
+  contadorIgual: -1,
   resultado: 0,
   num1: 0,
   num2: 0,
@@ -43,92 +43,114 @@ var Calculadora = {
             Calculadora.resultado = parseFloat(Calculadora.num1) / parseFloat(Calculadora.num2)
               break;
       default:
-      console.log("No hay acción!");
-
+      alert("Error!");
     }
-    // num1=Calculadora.resultado
   },
-  calcularSecuenciaOperacion() {
+  secuenciaOperacion() {
     switch (Calculadora.operacion) {
       case "sumar":
-      Calculadora.resultado = Calculadora.resultado + parseFloat(Calculadora.num2)
+      Calculadora.resultado = parseFloat(Calculadora.resultado) + parseFloat(Calculadora.num2)
         break;
         case "restar":
-        Calculadora.resultado = Calculadora.resultado - parseFloat(Calculadora.num2)
+        Calculadora.resultado = parseFloat(Calculadora.resultado) - parseFloat(Calculadora.num2)
           break;
           case "multiplicar":
-          Calculadora.resultado = Calculadora.resultado * parseFloat(Calculadora.num2)
+          Calculadora.resultado = parseFloat(Calculadora.resultado) * parseFloat(Calculadora.num2)
             break;
             case "dividir":
-            Calculadora.resultado = Calculadora.resultado / parseFloat(Calculadora.num2)
+            Calculadora.resultado = parseFloat(Calculadora.resultado) / parseFloat(Calculadora.num2)
               break;
       default:
-      console.log("No hay acción!");
-
+      alert("Error!");
     }
-    // num1=Calculadora.resultado
+  },
+  operacionCadena() {
+    switch (Calculadora.operacion) {
+      case "sumar":
+      Calculadora.resultado = parseFloat(Calculadora.num1) + parseFloat(Calculadora.num2)
+        break;
+        case "restar":
+        Calculadora.resultado = parseFloat(Calculadora.num1) - parseFloat(Calculadora.num2)
+          break;
+          case "multiplicar":
+          Calculadora.resultado = parseFloat(Calculadora.num1) * parseFloat(Calculadora.num2)
+            break;
+            case "dividir":
+            Calculadora.resultado = parseFloat(Calculadora.num1) / parseFloat(Calculadora.num2)
+              break;
+      default:
+      alert("Error!");
+    }
   },
   eventoBotones: function() {
 
 /*--------- Operaciones Matemáticas ---------*/
+    /*--------- Botón Suma ---------*/
     mas.addEventListener('mousedown', function() {
       mas.style.padding = '5px';
-      Calculadora.num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      Calculadora.num1 = pantalla.innerHTML;
+      pantalla.innerHTML = "";
       Calculadora.operacion = "sumar";
       Calculadora.digitos = 0;
+      Calculadora.operadorTecla = true;
     })
     mas.addEventListener('mouseup', function() {
       mas.style.padding = '0px';
-      console.log('El botón se ha dejado de presionar.');
     })
 
+    /*--------- Botón Resta ---------*/
     menos.addEventListener('mousedown', function() {
       menos.style.padding = '7px';
-      Calculadora.num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      Calculadora.num1 = pantalla.innerHTML;
+      pantalla.innerHTML = "";
       Calculadora.operacion = "restar";
       Calculadora.digitos = 0;
+      Calculadora.operadorTecla = true;
     })
     menos.addEventListener('mouseup', function() {
       menos.style.padding = '0px';
     })
 
+    /*--------- Botón División ---------*/
     dividir.addEventListener('mousedown', function() {
       dividir.style.padding = '7px';
-      Calculadora.num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      Calculadora.num1 = pantalla.innerHTML;
+      pantalla.innerHTML = "";
       Calculadora.operacion = "dividir";
       Calculadora.digitos = 0;
+      Calculadora.operadorTecla = true;
     })
     dividir.addEventListener('mouseup', function() {
       dividir.style.padding = '0px';
     })
 
+    /*--------- Botón Producto ---------*/
     producto.addEventListener('mousedown', function() {
       producto.style.padding = '7px';
-      Calculadora.num1 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      Calculadora.num1 = pantalla.innerHTML;
+      pantalla.innerHTML = "";
       Calculadora.operacion = "multiplicar";
       Calculadora.digitos = 0;
+      Calculadora.operadorTecla = true;
     })
     producto.addEventListener('mouseup', function() {
       producto.style.padding = '0px';
     })
 
+    /*--------- Botón ---------*/
     punto.addEventListener('mousedown', function() {
       punto.style.padding = '7px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0" ||
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "0."
+      if (pantalla.innerHTML === "0" ||
+          pantalla.innerHTML === "") {
+        pantalla.innerHTML = "0."
         Calculadora.digitos++;
       }
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML !== "0") {
-        numDisp = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
+      if (pantalla.innerHTML !== "0") {
+        numDisp = pantalla.innerHTML
         if (numDisp.indexOf('.') != -1) {
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = numDisp
+          pantalla.innerHTML = numDisp
         }else {
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = numDisp + "."
+          pantalla.innerHTML = numDisp + "."
         }
       }
     })
@@ -136,46 +158,65 @@ var Calculadora = {
       punto.style.padding = '0px';
     })
 
+    /*--------- Botón Igual ---------*/
     igual.addEventListener('mousedown', function() {
       igual.style.padding = '7px';
       Calculadora.contadorIgual++
-      if (Calculadora.contadorIgual<=1) {
-        Calculadora.num2 = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+      if (Calculadora.contadorIgual<1 && Calculadora.operadorTecla == true) {
+        Calculadora.num2 = pantalla.innerHTML;
         Calculadora.calcular();
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = Calculadora.resultado;
-      }else {
-        //alert("Sigo haciendo la última operacion con el segundo operando")
-        Calculadora.calcularSecuenciaOperacion();
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = Calculadora.resultado;
+        if (Calculadora.resultado >= 99999999 || Calculadora.resultado <= -99999999 ) {
+          pantalla.innerHTML = Calculadora.resultado.toPrecision(6);
+        } else {
+          pantalla.innerHTML = Calculadora.resultado;
+        }
+        Calculadora.operadorTecla = false;
+      }else if (Calculadora.contadorIgual>=1 && Calculadora.operadorTecla==false) {
+        Calculadora.secuenciaOperacion();
+        if (Calculadora.resultado >= 99999999 || Calculadora.resultado <= -99999999 ) {
+          pantalla.innerHTML = Calculadora.resultado.toPrecision(6);
+        } else {
+          pantalla.innerHTML = Calculadora.resultado;
+        }
+        Calculadora.operadorTecla = false;
+      }else if (Calculadora.contadorIgual>=1 && Calculadora.operadorTecla==true) {
+        Calculadora.num2 = pantalla.innerHTML;
+        Calculadora.operacionCadena();
+        if (Calculadora.resultado >= 99999999 || Calculadora.resultado <= -99999999 ) {
+          pantalla.innerHTML = Calculadora.resultado.toPrecision(6);
+        } else {
+          pantalla.innerHTML = Calculadora.resultado;
+        }
+        Calculadora.operadorTecla = false;
       }
-      // if (Calculadora.resultado) {
-      //   document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = Calculadora.resultado;
-      // }
     })
     igual.addEventListener('mouseup', function() {
       igual.style.padding = '0px';
     })
 
+    /*--------- Botón ON/C ---------*/
     on.addEventListener('mousedown', function() {
       on.style.padding = '5px';
-      document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "0"
+      pantalla.innerHTML = "0"
       Calculadora.digitos = 0;
-      Calculadora.contadorIgual = 0;
+      Calculadora.contadorIgual = -1;
+      Calculadora.num1 = 0;
+      Calculadora.num2 = 0;
+      Calculadora.resultado = 0;
     })
     on.addEventListener('mouseup', function() {
       on.style.padding = '0px';
     })
 
+    /*--------- Botón Signo -/+ ---------*/
     sign.addEventListener('mousedown', function() {
       sign.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML !== "0") {
-        numDisp = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML
+      if (pantalla.innerHTML !== "0") {
+        numDisp = pantalla.innerHTML
         if (numDisp.indexOf('-') != -1) {
-          alert("encontrado")
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = numDisp.substring(1);
+          pantalla.innerHTML = numDisp.substring(1);
         }else {
-          alert("No encontrado")
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML ="-" + numDisp
+          pantalla.innerHTML ="-" + numDisp
         }
       }
     })
@@ -183,6 +224,7 @@ var Calculadora = {
       sign.style.padding = '0px';
     })
 
+    /*--------- Botón Raíz ---------*/
     raiz.addEventListener('mousedown', function() {
       raiz.style.padding = '5px'
     })
@@ -194,13 +236,12 @@ var Calculadora = {
     cero.addEventListener('mousedown', function() {
       cero.style.padding = '5px';
       if (Calculadora.digitos<8) {
-        if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
+        if (pantalla.innerHTML === "0") {
         }else {
           Calculadora.digitos++
-          console.log("Distinto de CERO");
-          var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+          var actual = pantalla.innerHTML;
           var sumado = 0;
-          document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado;
+          pantalla.innerHTML = actual + sumado;
         }
       }
     })
@@ -211,13 +252,13 @@ var Calculadora = {
     uno.addEventListener('mousedown', function() {
       Calculadora.digitos++
       uno.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 1;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     uno.addEventListener('mouseup', function() {
@@ -227,13 +268,13 @@ var Calculadora = {
     dos.addEventListener('mousedown', function() {
       Calculadora.digitos++
       dos.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 2;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     dos.addEventListener('mouseup', function() {
@@ -243,13 +284,13 @@ var Calculadora = {
     tres.addEventListener('mousedown', function() {
       Calculadora.digitos++
       tres.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 3;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     tres.addEventListener('mouseup', function() {
@@ -259,13 +300,13 @@ var Calculadora = {
     cuatro.addEventListener('mousedown', function() {
       Calculadora.digitos++
       cuatro.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 4;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     cuatro.addEventListener('mouseup', function() {
@@ -275,13 +316,13 @@ var Calculadora = {
     cinco.addEventListener('mousedown', function() {
       Calculadora.digitos++
       cinco.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 5;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     cinco.addEventListener('mouseup', function() {
@@ -291,13 +332,13 @@ var Calculadora = {
     seis.addEventListener('mousedown', function() {
       Calculadora.digitos++
       seis.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 6;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     seis.addEventListener('mouseup', function() {
@@ -307,13 +348,13 @@ var Calculadora = {
     siete.addEventListener('mousedown', function() {
       Calculadora.digitos++
       siete.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 7;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     siete.addEventListener('mouseup', function() {
@@ -323,13 +364,13 @@ var Calculadora = {
     ocho.addEventListener('mousedown', function() {
       Calculadora.digitos++
       ocho.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 8;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     ocho.addEventListener('mouseup', function() {
@@ -339,25 +380,18 @@ var Calculadora = {
     nueve.addEventListener('mousedown', function() {
       Calculadora.digitos++
       nueve.style.padding = '5px';
-      if (document.querySelector("#calculadoraFondo .pantalla #display").innerHTML === "0") {
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = "";
+      if (pantalla.innerHTML === "0") {
+        pantalla.innerHTML = "";
       }
       if (Calculadora.digitos<9) {
-        var actual = document.querySelector("#calculadoraFondo .pantalla #display").innerHTML;
+        var actual = pantalla.innerHTML;
         var sumado = 9;
-        document.querySelector("#calculadoraFondo .pantalla #display").innerHTML = actual + sumado
+        pantalla.innerHTML = actual + sumado
       }
     })
     nueve.addEventListener('mouseup', function() {
       nueve.style.padding = '0px';
     })
-
-
-
-
-
-
-    // this.numerosDisplay();
   }
 }
 
